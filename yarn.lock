@@ -375,7 +375,13 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/leaflet@^1.2.7":
+"@types/leaflet.awesome-markers@^2.0.23":
+  version "2.0.23"
+  resolved "https://registry.yarnpkg.com/@types/leaflet.awesome-markers/-/leaflet.awesome-markers-2.0.23.tgz#b181aa77da7c4eb54bd18b0dd49688e252800485"
+  dependencies:
+    "@types/leaflet" "*"
+
+"@types/leaflet@*", "@types/leaflet@^1.2.7":
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.2.7.tgz#3dc357ea5e645033bf3569db6510d0d5e6a58df5"
   dependencies:
@@ -1731,6 +1737,13 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
+cors@^2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.4.tgz#2bd381f2eb201020105cd50ea59da63090694686"
+  dependencies:
+    object-assign "^4"
+    vary "^1"
+
 cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-2.2.2.tgz#6173cebd56fac042c1f4390edf7af6c07c7cb892"
@@ -2586,6 +2599,20 @@ fast-levenshtein@~2.0.4:
 fast-safe-stringify@^1.0.8, fast-safe-stringify@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.2.3.tgz#9fe22c37fb2f7f86f06b8f004377dbf8f1ee7bc1"
+
+fastify-plugin@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-1.0.1.tgz#4bd94d6f27cddf59fd43e188d6eedb1168ffc35d"
+  dependencies:
+    semver "^5.5.0"
+
+fastify-static@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-0.12.0.tgz#024d6cf37a6b64bb4486921bdc88315c7c98799c"
+  dependencies:
+    fastify-plugin "^1.0.0"
+    readable-stream "^2.3.6"
+    send "^0.16.0"
 
 fastify@^1.5.0:
   version "1.5.0"
@@ -4190,6 +4217,10 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
+leaflet.awesome-markers@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/leaflet.awesome-markers/-/leaflet.awesome-markers-2.0.4.tgz#66fea2090c9c8a0ab6d1f3b6bdd02fb37cf4ba1a"
+
 leaflet@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.1.tgz#86f336d2fb0e2d0ff446677049a5dc34cf0ea60e"
@@ -4956,7 +4987,7 @@ oauth-sign@~0.8.1, oauth-sign@~0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
-object-assign@4.1.0, object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@4.1.0, object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
 
@@ -6205,7 +6236,7 @@ semver@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
-send@0.16.2, send@^0.16.1:
+send@0.16.2, send@^0.16.0, send@^0.16.1:
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/send/-/send-0.16.2.tgz#6ecca1e0f8c156d141597559848df64730a6bbc1"
   dependencies:
@@ -7237,7 +7268,7 @@ validate-npm-package-name@^3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-vary@~1.1.2:
+vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 

@@ -13,7 +13,10 @@
 require('dotenv/config');
 
 import * as fastify from 'fastify';
-//import * as cors from 'cors'
+const fastifyStatic = require('fastify-static');
+import * as cors from 'cors';
+const path = require('path');
+
 import * as http from 'http';
 import { createReadStream } from 'fs';
 
@@ -47,12 +50,17 @@ const opts = {
   }
 };
 
-//server.use(cors())
-//app.use(postgraphile(process.env.DATABASE_URL));
+app.use(cors());
 app.use(postgraphile(process.env.DATABASE_URL, { graphiql: true }));
+app.register(fastifyStatic, {
+  root: path.join(__dirname, '../dist/blue'),
+  prefix: '/'
+});
 
 const server = app.listen(3000, err => {
-  if (err) throw err;
+  if (err) {
+    throw err;
+  }
   console.log(`server listening on ${app.server.address().port}`);
 });
 

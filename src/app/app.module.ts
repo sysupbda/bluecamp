@@ -42,7 +42,7 @@ import { ScheduleItemComponent } from './components/schedule-item/schedule-item.
 export class AppModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
-      link: httpLink.create({ uri: 'https://dadsetan.com:3000/graphql' }),
+      link: httpLink.create({ uri: '/graphql' }),
       cache: new InMemoryCache()
     });
   }
