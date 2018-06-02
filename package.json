@@ -6,6 +6,7 @@
     "start": "ng serve",
     "watch": "nodemon -e ts -w 'server/**/*.ts' --ignore 'server/**/*.spec.ts' -x npm run start:dev",
     "start:dev": "node -r ts-node/register server/server.ts",
+    "migrate": "knex migrate:latest --cwd server --knexfile knexfile.ts",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
