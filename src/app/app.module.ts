@@ -20,9 +20,10 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MaterialModule } from './material.module';
 
 import { environment } from '../environments/environment';
+import { ScheduleItemComponent } from './components/schedule-item/schedule-item.component';
 
 @NgModule({
-  declarations: [AppComponent, MapComponent],
+  declarations: [AppComponent, MapComponent, ScheduleItemComponent],
   imports: [
     BrowserModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {
@@ -41,7 +42,7 @@ import { environment } from '../environments/environment';
 export class AppModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
-      link: httpLink.create({ uri: 'https://35.203.131.44/graphql' }),
+      link: httpLink.create({ uri: 'http://localhost:3000/graphql' }),
       cache: new InMemoryCache()
     });
   }
