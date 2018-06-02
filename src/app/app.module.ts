@@ -14,11 +14,15 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { MapComponent } from './components/map/map';
+
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MaterialModule } from './material.module';
+
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MapComponent],
   imports: [
     BrowserModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {
@@ -28,6 +32,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
+    LeafletModule,
     MaterialModule
   ],
   providers: [],

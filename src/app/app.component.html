@@ -4,13 +4,17 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-card class="dashboard-card">
-  <mat-card-header>
-    <mat-card-title>
-      <h1 class="mat-h1">Map</h1>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="dashboard-card-content">
-    Lorem ipsum...
-  </mat-card-content>
-</mat-card>
+<mat-grid-list cols="1">
+    <mat-grid-tile>
+        <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                <h1 class="mat-h1">Map</h1>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <map></map>
+            </mat-card-content>
+          </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
