@@ -5,7 +5,8 @@
     "module": "es2015",
     "types": [
       "leaflet",
-      "leaflet.awesome-markers"
+      "leaflet.awesome-markers",
+      "leaflet.locatecontrol"
     ]
   },
   "exclude": [
