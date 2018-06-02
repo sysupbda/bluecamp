@@ -1,8 +1,7 @@
-
 interface Config {
-    port: number;
+  port: number;
 }
 
 export const config: Config = {
-    port: Number(process.env.PORT || 3000)
+  port: Number(process.env.PORT || 3000)
 };

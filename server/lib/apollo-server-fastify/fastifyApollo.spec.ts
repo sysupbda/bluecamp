@@ -4,7 +4,7 @@ const jsonParser = require('fast-json-body');
 import { graphqlFastify, graphiqlFastify } from './fastifyApollo';
 import testSuite, {
   schema,
-  CreateAppOptions,
+  CreateAppOptions
 } from 'apollo-server-integration-testsuite';
 import { expect } from 'chai';
 import { GraphQLOptions } from 'apollo-server-core';
@@ -52,14 +52,14 @@ describe('Fastify', () => {
         graphqlFastify(
           {} as FastifyInstance,
           undefined as CreateAppOptions,
-          undefined,
-        ),
+          undefined
+        )
       ).to.throw('Apollo Server requires options.');
     });
 
     it('throws an error if called with argument not equal to 3', function() {
       expect(() => (<any>graphqlFastify)({}, { graphqlOptions: {} })).to.throw(
-        'Apollo Server expects exactly 3 argument, got 2',
+        'Apollo Server expects exactly 3 argument, got 2'
       );
     });
   });
