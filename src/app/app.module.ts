@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppComponent } from './app.component';
+import { MaterialModule } from './material.module';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
