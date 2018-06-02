@@ -16,12 +16,10 @@ import * as fastify from 'fastify';
 //import * as cors from 'cors'
 import * as http from 'http';
 import { createReadStream } from 'fs';
-import { makeExecutableSchema } from 'graphql-tools';
 
 import * as pino from 'pino';
 import postgraphile from 'postgraphile';
 
-import { graphqlFastify } from './lib/apollo-server-fastify';
 import { config } from './config';
 
 const logger = pino({
@@ -50,7 +48,8 @@ const opts = {
 };
 
 //server.use(cors())
-app.use(postgraphile(process.env.DATABASE_URL));
+//app.use(postgraphile(process.env.DATABASE_URL));
+app.use(postgraphile(process.env.DATABASE_URL, { graphiql: true }));
 
 const server = app.listen(3000, err => {
   if (err) throw err;
