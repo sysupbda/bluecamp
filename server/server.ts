@@ -17,7 +17,9 @@ import * as fastify from 'fastify';
 import * as http from 'http';
 import { createReadStream } from 'fs';
 import { makeExecutableSchema } from 'graphql-tools';
+
 import * as pino from 'pino';
+import postgraphile from 'postgraphile';
 
 import { graphqlFastify } from './lib/apollo-server-fastify';
 import { config } from './config';
@@ -47,25 +49,8 @@ const opts = {
   }
 };
 
-const typeDefs = `
-type Query {
-  testString: String
-}
-`;
-const schema = makeExecutableSchema({ typeDefs });
-
-app.register(graphqlFastify, { graphqlOptions: { schema } });
-
-function getHelloHandler(
-  req: fastify.FastifyRequest<http.IncomingMessage>,
-  reply: fastify.FastifyReply<http.ServerResponse>
-) {
-  reply.header('Content-Type', 'application/json').code(200);
-  reply.send({ hello: 'world' });
-}
-
 //server.use(cors())
-app.get('/', opts, getHelloHandler);
+app.use(postgraphile(process.env.DATABASE_URL));
 
 const server = app.listen(3000, err => {
   if (err) throw err;
