@@ -4,17 +4,19 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-grid-list cols="1">
-    <mat-grid-tile>
-        <mat-card class="dashboard-card">
-            <mat-card-header>
-              <mat-card-title>
-                <h1 class="mat-h1">Map</h1>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <map></map>
-            </mat-card-content>
-          </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="dashboard-grid-container">
+  <mat-grid-list cols="1"  rowHeight="400px">
+      <mat-grid-tile>
+          <mat-card class="dashboard-card">
+              <mat-card-header>
+                <mat-card-title>
+                  <h1 class="mat-h1">Map</h1>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                  <map></map>
+              </mat-card-content>
+            </mat-card>
+      </mat-grid-tile>
+  </mat-grid-list>
+</div>
