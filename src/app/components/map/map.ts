@@ -2,6 +2,7 @@ import { ViewEncapsulation, Component } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.js';
+import { log } from 'async';
 
 // to specify the leaflet.awesomeMarkers icon CSS provider
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
@@ -33,8 +34,8 @@ export class MapComponent {
   });
 
   foodMarkers = L.layerGroup([
-    L.marker(L.latLng(32.772533, -117.188164), { icon: this.foodMarkerIcon }).bindPopup('Lorem ipsum...'),
-    L.marker(L.latLng(32.771896, -117.194621), { icon: this.foodMarkerIcon }).bindPopup('Dolor sit amet...')
+    L.marker(L.latLng(32.772533, -117.188164), { icon: this.foodMarkerIcon }).bindPopup('Lorem ipsum...').on('dblclick', this.markerClick.bind(this)),
+    L.marker(L.latLng(32.771896, -117.194621), { icon: this.foodMarkerIcon }).bindPopup('Dolor sit amet...').on('dblclick', this.markerClick.bind(this))
   ]);
 
   dummyMarkers = L.layerGroup([
@@ -81,8 +82,7 @@ export class MapComponent {
 
       L.marker([ latLng.lat, latLng.lng ], { icon })
         .addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point")
-        .openPopup();
+        .bindPopup(`You are within ${radius} meters from this point`);
 
       L.circle(event.latlng, radius).addTo(map);
     });
@@ -92,5 +92,19 @@ export class MapComponent {
       console.log(latLng, 'latLng');
       L.marker([ latLng.lat, latLng.lng ]).addTo(map);
     });
+  }
+
+  markerClick(event) {
+    this.routeToLatLngWithNativeApp(event.latlng.lat, event.latlng.lng);
+  }
+
+  routeToLatLngWithNativeApp(lat, lng) {
+    if /* if we're on iOS, open in Apple Maps */
+      ((navigator.platform.indexOf("iPhone") != -1) || 
+       (navigator.platform.indexOf("iPad") != -1) || 
+       (navigator.platform.indexOf("iPod") != -1))
+      window.open(`maps://maps.google.com/maps?daddr=${lat},${lng}&amp;ll=`);
+    else /* else use Google */
+      window.open(`https://maps.google.com/maps?daddr=${lat},${lng}&amp;ll=`);
   }
 }
