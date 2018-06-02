@@ -15,8 +15,11 @@ import * as fastify from 'fastify'
 //import * as cors from 'cors'
 import { createReadStream } from 'fs'
 import * as http from 'http'
+import { makeExecutableSchema } from 'graphql-tools';
+import { graphqlFastify } from './lib/apollo-server-fastify';
 
-const server = fastify()
+
+const app = fastify()
 
 const opts = {
   schema: {
@@ -33,28 +36,32 @@ const opts = {
   }
 }
 
+const typeDefs = `
+type Query {
+  testString: String
+}
+`;
+const schema = makeExecutableSchema({ typeDefs });
+
+app.register(graphqlFastify, { graphqlOptions: { schema } });
+
 function getHelloHandler (req: fastify.FastifyRequest<http.IncomingMessage>,
     reply: fastify.FastifyReply<http.ServerResponse>) {
   reply.header('Content-Type', 'application/json').code(200)
   reply.send({ hello: 'world' })
 }
 
-function getStreamHandler (req, reply) {
-  const stream = createReadStream(process.cwd() + '/examples/plugin.js', 'utf8')
-  reply.code(200).send(stream)
-}
-
 //server.use(cors())
-server.get('/', opts, getHelloHandler)
-server.get('/stream', getStreamHandler)
+app.get('/', opts, getHelloHandler)
 
-server.listen(3000, err => {
+const server = app.listen(3000, err => {
   if (err) throw err
-  console.log(`server listening on ${server.server.address().port}`)
+  console.log(`server listening on ${app.server.address().port}`)
 })
 
 function shutdownHandler(server) {
     return () => server.close()
 }
 
-process.once('SIGTERM', shutdownHandler(server))
+process.once('SIGTERM', shutdownHandler(app));
+process.once('SIGINT', shutdownHandler(app));
