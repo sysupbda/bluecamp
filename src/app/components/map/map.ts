@@ -1,6 +1,7 @@
 import { ViewEncapsulation, Component } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.js';
 
 // to specify the leaflet.awesomeMarkers icon CSS provider
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
@@ -65,11 +66,12 @@ export class MapComponent {
   };
 
   onMapReady(map) {
-    map.locate({
-      watch: true,
-      setView: true,
-      enableHighAccuracy: true
-    });
+    L.control.locate({
+      position: 'topright',
+      strings: {
+          title: "Show me where I am, yo!"
+      }
+    }).addTo(map);
 
     map.on('locationfound', event => {
       console.log(event, 'LOCATION FOUND EVENT');
