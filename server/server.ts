@@ -10,14 +10,27 @@
  * node examples/typescript-server.js
  */
 
+require('dotenv/config');
+
 import * as fastify from 'fastify';
 //import * as cors from 'cors'
-import { createReadStream } from 'fs';
 import * as http from 'http';
+import { createReadStream } from 'fs';
 import { makeExecutableSchema } from 'graphql-tools';
-import { graphqlFastify } from './lib/apollo-server-fastify';
+import * as pino from 'pino';
 
-const app = fastify();
+import { graphqlFastify } from './lib/apollo-server-fastify';
+import { config } from './config';
+
+const logger = pino({
+  name: 'bluecamp',
+  prettyPrint: true,
+  level: config.logLevel
+});
+
+const app = fastify({
+  logger
+});
 
 const opts = {
   schema: {
