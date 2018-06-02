@@ -1,6 +1,8 @@
 # Blue
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
+You will also need to run
+`npm i -g node-sass`
 
 ## Development server
 
