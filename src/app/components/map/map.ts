@@ -22,7 +22,7 @@ export class MapComponent {
 
   // you can spedify any tile server here... eg. mapbox, google, openstreetmap
   // @ts-ignore:TS2339
-  baseLayer = L.tileLayer.offline('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  baseLayer = L.tileLayer.offline('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'OpenStreetMap',
       subdomains: 'abc',
       maxZoom: 18
