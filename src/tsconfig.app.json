@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2015",
-    "types": []
+    "types": [
+      "leaflet",
+      "leaflet.awesome-markers"
+    ]
   },
   "exclude": [
     "src/test.ts",
