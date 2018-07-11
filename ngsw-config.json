@@ -20,5 +20,16 @@
         "/assets/**"
       ]
     }
+  }, {
+    "name": "mapTiles",
+    "installMode": "lazy",
+    "updateMode": "lazy",
+    "resources": {
+      "urls": [
+        "https://a.tile.openstreetmap.org/**/*.png",
+        "https://b.tile.openstreetmap.org/**/*.png",
+        "https://c.tile.openstreetmap.org/**/*.png"
+      ]
+    }
   }]
 }
