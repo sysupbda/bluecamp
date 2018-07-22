@@ -17,7 +17,7 @@ L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
 // icons: https://fontawesome.com/icons?d=gallery
 export class MapComponent {
 
-  minZoom = 16;
+  minZoom = 15;
   maxZoom = 18;
 
   // @ts-ignore:TS2339
