@@ -8,7 +8,7 @@ import 'leaflet.offline/src/index.js';
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
 
 @Component({
-  selector: 'map',
+  selector: 'app-ucsd-map',
   templateUrl: './map.html',
   styleUrls: ['./map.scss'],
   encapsulation: ViewEncapsulation.None
@@ -17,10 +17,9 @@ L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
 // icons: https://fontawesome.com/icons?d=gallery
 export class MapComponent {
 
-  minZoom = 14
-  maxZoom = 18
+  minZoom = 16;
+  maxZoom = 18;
 
-  // you can spedify any tile server here... eg. mapbox, google, openstreetmap
   // @ts-ignore:TS2339
   baseLayer = L.tileLayer.offline('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'OpenStreetMap',
@@ -33,26 +32,28 @@ export class MapComponent {
     markerColor: 'red'
   });
 
-  dummyMarkerIcon = L.AwesomeMarkers.icon({
+  primaryMarkerIcon = L.AwesomeMarkers.icon({
     icon: 'bed',
     markerColor: 'blue'
   });
 
   foodMarkers = L.layerGroup([
-    L.marker(L.latLng(32.8719567, -117.2413123), { icon: this.foodMarkerIcon }).bindPopup('Lorem ipsum...').on('dblclick', this.markerClick.bind(this)),
-    L.marker(L.latLng(32.883263266394934, -117.24240303039552), { icon: this.foodMarkerIcon }).bindPopup('Dolor sit amet...').on('dblclick', this.markerClick.bind(this))
+    L.marker(L.latLng(32.874762, -117.242364),
+      { icon: this.foodMarkerIcon }).bindPopup('Dorm cafeteria').on('dblclick', this.markerClick.bind(this)),
+    L.marker(L.latLng(32.879718, -117.236940),
+      { icon: this.foodMarkerIcon }).bindPopup('Price Center Plaza').on('dblclick', this.markerClick.bind(this))
   ]);
 
-  dummyMarkers = L.layerGroup([
-    L.marker(L.latLng(32.87785719403553, -117.24326133728029), { icon: this.dummyMarkerIcon }).bindPopup('Lorem ipsum...'),
-    L.marker(L.latLng(32.87771302759221, -117.23776817321779), { icon: this.dummyMarkerIcon }).bindPopup('Lorem ipsum...')
+  primaryMarkers = L.layerGroup([
+    L.marker(L.latLng(32.874512, -117.241651), { icon: this.primaryMarkerIcon }).bindPopup('Residence'),
+    L.marker(L.latLng(32.879924, -117.237150), { icon: this.primaryMarkerIcon }).bindPopup('Conference')
   ]);
 
   // layer groups to show on the top right corner
   layersControl = {
     overlays: {
       'Food': this.foodMarkers,
-      'Dummy': this.dummyMarkers
+      'Primary': this.primaryMarkers
     }
   };
 
@@ -61,13 +62,13 @@ export class MapComponent {
       this.baseLayer,
       this.foodMarkers
     ],
-    zoom: 14,
+    zoom: 16,
     minZoom: this.minZoom,
     maxZoom: this.maxZoom,
-    center: L.latLng(32.8719567, -117.2413123),
+    center: L.latLng(32.877473, -117.239686),
     maxBounds: L.latLngBounds(
-      L.latLng(32.89455723301066, -117.21360817551614),
-      L.latLng(32.86766472466352, -117.26905480027202)
+      L.latLng(32.8820375, -117.2364797),
+      L.latLng(32.8737385, -117.2460197)
     )
   };
 
@@ -76,31 +77,14 @@ export class MapComponent {
     L.control.savetiles(this.baseLayer, {
       position: 'topright',
       zoomlevels: [this.minZoom, this.maxZoom],
-      confirm: function(layer, succescallback) {
-          if (window.confirm("Save " + layer._tilesforSave.length)) {
-              succescallback();
-          }
-      },
-      confirmRemoval: function(layer, successCallback) {
-          if (window.confirm("Remove all the tiles?")) {
-              successCallback();
-          }
-      },
-      saveText: '<i class="fa fa-download" aria-hidden="true" title="Save tiles"></i>',
-      rmText: '<i class="fa fa-trash" aria-hidden="true"  title="Remove tiles"></i>'
     }).addTo(map);
-
+    L.control._saveTiles();
     L.control.locate({
       position: 'topright',
       strings: {
-          title: "Show me where I am, yo!"
+          title: 'Looking for your location'
       }
     }).addTo(map);
-
-    // to figure out maxBounds uncomment this!
-    map.on('moveend', event => {
-      console.log(map.getBounds(), 'event');
-    });
 
     map.on('locationfound', event => {
       console.log(event, 'LOCATION FOUND EVENT');
@@ -115,12 +99,6 @@ export class MapComponent {
       L.circle(event.latlng, radius).addTo(map);
     });
 
-    map.on('click', event => {
-      const latLng = event.latlng;
-      console.log(latLng, 'latLng');
-      L.marker([ latLng.lat, latLng.lng ]).addTo(map);
-    });
-
     this.addBaseLayerOfflineEvents();
   }
 
@@ -132,18 +110,9 @@ export class MapComponent {
         total = e._tilesforSave.length;
     });
 
-    this.baseLayer.on('savetileend', function(e) {
+    this.baseLayer.on('savetileend', function() {
         progress++;
         document.getElementById('progress').innerHTML = `${total} / ${progress}`;
-    });
-
-    this.baseLayer.on('loadend', function(e) {
-        alert("Saved all tiles");
-        document.getElementById('progress').innerHTML = '';
-    });
-
-    this.baseLayer.on('tilesremoved', function(e) {
-        alert("Removed all tiles");
     });
   }
 
@@ -153,11 +122,12 @@ export class MapComponent {
 
   routeToLatLngWithNativeApp(lat, lng) {
     if /* if we're on iOS, open in Apple Maps */
-      ((navigator.platform.indexOf('iPhone') != -1) || 
-       (navigator.platform.indexOf('iPad') != -1) || 
-       (navigator.platform.indexOf('iPod') != -1))
+      ((navigator.platform.indexOf('iPhone') !== -1) ||
+       (navigator.platform.indexOf('iPad') !== -1) ||
+       (navigator.platform.indexOf('iPod') !== -1)) {
       window.open(`maps://maps.google.com/maps?daddr=${lat},${lng}&amp;ll=`);
-    else /* else use Google */
+    } else /* else use Google */ {
       window.open(`https://maps.google.com/maps?daddr=${lat},${lng}&amp;ll=`);
+    }
   }
 }
