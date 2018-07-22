@@ -56,18 +56,17 @@ export class MapComponent {
       'Primary': this.primaryMarkers
     }
   };
-
   options = {
     layers: [ // to enable a layer on init add it to this array
       this.baseLayer,
-      this.foodMarkers
+      this.primaryMarkers
     ],
     zoom: 16,
     minZoom: this.minZoom,
     maxZoom: this.maxZoom,
     center: L.latLng(32.877473, -117.239686),
     maxBounds: L.latLngBounds(
-      L.latLng(32.8820375, -117.2364797),
+      L.latLng(32.8820375, -117.234588),
       L.latLng(32.8737385, -117.2460197)
     )
   };
