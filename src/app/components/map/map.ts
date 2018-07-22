@@ -78,6 +78,8 @@ export class MapComponent {
       position: 'topright',
       zoomlevels: [this.minZoom, this.maxZoom],
     }).addTo(map);
+
+    // @ts-ignore:TS2339
     L.control._saveTiles();
     L.control.locate({
       position: 'topright',
